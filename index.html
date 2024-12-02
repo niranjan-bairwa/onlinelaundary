@@ -4,26 +4,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Online Laundry</title>
+    <title>Domain for Sale - onlinelaundary.com</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f8f9fa;
+            background-color: #f4f4f9;
             color: #333;
             margin: 0;
             padding: 0;
         }
 
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+
         h1 {
-            margin-top: 20%;
+            font-size: 2.5rem;
+            color: #007BFF;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 
 <body>
-    <h1>Welcome to Online Laundry!</h1>
-    <p>We are preparing something amazing. Stay tuned!</p>
+    <div class="container">
+        <h1>onlinelaundary.com is Available for Sale!</h1>
+        <p>If you are interested in owning this domain, please leave your details below, and we will get in touch with you.</p>
+        <div class="form-container">
+            <form action="https://formsubmit.co/vnbairwa2002@gmail.com" method="POST">
+                <!-- Security features for FormSubmit -->
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="https://onlinelaundary.com/thank-you">
+
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <input type="tel" name="phone" placeholder="Your Phone Number" required>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
 </body>
 
 </html>
