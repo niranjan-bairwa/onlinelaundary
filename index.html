@@ -1,92 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Domain for Sale - onlinelaundary.com</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Style Advisor</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f0f0f0;
+    }
 
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            text-align: center;
-        }
+    .header {
+      text-align: center;
+      padding: 20px 0;
+    }
 
-        h1 {
-            font-size: 2.5rem;
-            color: #007BFF;
-            margin-bottom: 10px;
-        }
+    .title {
+      font-size: 2.5em;
+      color: #336699; /* Vibrant blue */
+    }
 
-        p {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            color: #555;
-        }
+    .subtitle {
+      font-size: 1.5em;
+      color: #666;
+    }
 
-        .form-container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 400px;
-        }
+    .loader {
+      display: none;
+      margin-top: 20px;
+    }
 
-        .form-container input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
+    .loader.active {
+      display: block;
+    }
 
-        .form-container button {
-            width: 100%;
-            padding: 10px;
-            background-color: #007BFF;
-            border: none;
-            border-radius: 5px;
-            color: white;
-            font-size: 1rem;
-            cursor: pointer;
-        }
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #336699; /* Match title color */
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
 
-        .form-container button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .question-form {
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 1.5em;
+      margin-bottom: 15px;
+    }
+
+    input {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background-color: #336699; /* Match title color */
+      color: #fff; /* White text */
+      transition: background-color 0.2s ease; /* Smoother hover effect */
+    }
+
+    button:hover {
+      background-color: #224466; /* Darker shade of the button color */
+    }
+
+    .response-container {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #fff; /* Lighter background for response */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    }
+
+    #apiResponse {
+      font-size: 16px;
+    }
+  </style>
 </head>
-
 <body>
-    <div class="container">
-        <h1>onlinelaundary.com is Available for Sale!</h1>
-        <p>If you are interested in owning this domain, please leave your details below, and we will get in touch with you.</p>
-        <div class="form-container">
-            <form action="https://formsubmit.co/vnbairwa2002@gmail.com" method="POST">
-                <!-- Security features for FormSubmit -->
-                <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_next" value="https://onlinelaundary.com">
-
-                <input type="text" name="name" placeholder="Your Name" required>
-                <input type="email" name="email" placeholder="Your Email" required>
-                <input type="tel" name="phone" placeholder="Your Phone Number" required>
-                <button type="submit">Submit</button>
-            </form>
-        </div>
+  <header class="header">
+    <h1 class="title">Style Advisor</h1>
+    <p class="subtitle">Your Personal Fashion Consultant</p>
+    <div class="loader" id="loader">
+      <div class="spinner"></div>
     </div>
-</body>
+  </header>
 
+  <main class="main-content">
+    <section class="question-form">
+      <h2>Got a Style Question?</h2>
+      <p>Ask away, and let's find your perfect look!</p>
+      <input type="text" id="userInput" placeholder="E.g., What should I wear to a summer party?">
+      <button onclick="fetchResponse()">Get Advice</button>
+    </section>
+
+    <section class="response-container" id="response">
+      <strong>Response:</strong>
+      <p id="apiResponse"></p>
+    </section>
+  </main>
+
+  <script>
+    // Function to preserve bold formatting and newlines
+    function formatResponse(markdown) {
+      return markdown
+        .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>') // Replace double asterisks with bold tags
+        .replace(/\*/g, '<br>'); // Replace single asterisks with newlines
+    }
+
+    const API_KEY = 'AIzaSyA8vWGNDn7DSrrmCxwvPynjN7l5cBo7vRo'; // Replace with your actual API key
+
+    async function fetchResponse() {
+      // Show the loader
+      document.getElementById('loader').classList.add('active');
+
+      const userInput = document.getElementById('userInput').value.trim();
+
+      if (!userInput) {
+        alert('Please enter a question about clothes');
+        return;
+      }
+
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`;
+      const data = {
+        contents: [
+          {
+            parts: [
+              {
+                text: userInput
+              }
+            ]
+          }
+        ]
+      };
+
+      try {
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+          const errorDetails = await response.json();
+          throw new Error(`API returned error: ${response.status}, ${errorDetails.error?.message || 'Unknown error'}`);
+        }
+
+        const result = await response.json();
+        const responseContent = result.candidates[0]?.content?.parts[0]?.text || 'No specific response received.';
+
+        // Set the response content with formatting
+        document.getElementById('apiResponse').innerHTML = formatResponse(responseContent);
+      } catch (error) {
+        document.getElementById('apiResponse').textContent = `Error: ${error.message}`;
+        console.error('API Error:', error);
+      } finally {
+        // Hide the loader after response
+        document.getElementById('loader').classList.remove('active');
+      }
+    }
+  </script>
+</body>
 </html>
