@@ -7,8 +7,32 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 20px;
+      margin: 0;
+      display: flex;
+      flex-direction: row;
+      height: 100vh;
       background-color: #f0f0f0;
+    }
+
+    .container {
+      display: flex;
+      width: 100%;
+    }
+
+    .left-panel, .right-panel {
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .left-panel {
+      width: 50%;
+      background-color: #fff;
+      border-right: 2px solid #ddd;
+    }
+
+    .right-panel {
+      width: 50%;
+      background-color: #f9f9f9;
     }
 
     .header {
@@ -18,7 +42,7 @@
 
     .title {
       font-size: 2.5em;
-      color: #336699; /* Vibrant blue */
+      color: #336699;
     }
 
     .subtitle {
@@ -38,7 +62,7 @@
     .spinner {
       width: 40px;
       height: 40px;
-      border: 4px solid #336699; /* Match title color */
+      border: 4px solid #336699;
       border-top-color: transparent;
       border-radius: 50%;
       animation: spin 1s linear infinite;
@@ -70,7 +94,7 @@
       font-size: 16px;
       border: 1px solid #ccc;
       border-radius: 5px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     button {
@@ -79,13 +103,13 @@
       cursor: pointer;
       border: none;
       border-radius: 5px;
-      background-color: #336699; /* Match title color */
-      color: #fff; /* White text */
-      transition: background-color 0.2s ease; /* Smoother hover effect */
+      background-color: #336699;
+      color: #fff;
+      transition: background-color 0.2s ease;
     }
 
     button:hover {
-      background-color: #224466; /* Darker shade of the button color */
+      background-color: #224466;
     }
 
     .response-container {
@@ -93,12 +117,18 @@
       padding: 15px;
       border: 1px solid #ddd;
       border-radius: 5px;
-      background-color: #fff; /* Lighter background for response */
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     #apiResponse {
       font-size: 16px;
+    }
+
+    .divider {
+      width: 1px;
+      background-color: #ddd;
+      margin: 0 20px;
     }
   </style>
 </head>
@@ -106,37 +136,49 @@
   <header class="header">
     <h1 class="title">Style Advisor</h1>
     <p class="subtitle">Your Personal Fashion Consultant</p>
-    <div class="loader" id="loader">
-      <div class="spinner"></div>
-    </div>
   </header>
 
-  <main class="main-content">
-    <section class="question-form">
-      <h2>Got a Style Question?</h2>
-      <p>Ask away, and let's find your perfect look!</p>
-      <input type="text" id="userInput" placeholder="E.g., What should I wear to a summer party?">
-      <button onclick="fetchResponse()">Get Advice</button>
-    </section>
+  <div class="container">
+    <div class="left-panel">
+      <section class="response-container" id="response">
+        <strong>System and Location Details:</strong>
+        <div id="locationDetails"></div>
+        <div id="systemDetails"></div>
+        <div id="memoryDetails"></div>
+      </section>
+    </div>
 
-    <section class="response-container" id="response">
-      <strong>Response:</strong>
-      <p id="apiResponse"></p>
-    </section>
-  </main>
+    <div class="divider"></div>
+
+    <div class="right-panel">
+      <section class="question-form">
+        <h2>Got a Style Question?</h2>
+        <p>Ask away, and let's find your perfect look!</p>
+        <input type="text" id="userInput" placeholder="E.g., What should I wear to a summer party?">
+        <button onclick="fetchResponse()">Get Advice</button>
+      </section>
+
+      <section class="response-container">
+        <strong>Response:</strong>
+        <p id="apiResponse"></p>
+      </section>
+      
+      <div class="loader" id="loader">
+        <div class="spinner"></div>
+      </div>
+    </div>
+  </div>
 
   <script>
-    // Function to preserve bold formatting and newlines
     function formatResponse(markdown) {
       return markdown
         .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>') // Replace double asterisks with bold tags
         .replace(/\*/g, '<br>'); // Replace single asterisks with newlines
     }
 
-    const API_KEY = 'AIzaSyA8vWGNDn7DSrrmCxwvPynjN7l5cBo7vRo'; // Replace with your actual API key
+    const API_KEY = 'AIzaSyA8vWGNDn7DSrrmCxwvPynjN7l5cBo7vRo';
 
     async function fetchResponse() {
-      // Show the loader
       document.getElementById('loader').classList.add('active');
 
       const userInput = document.getElementById('userInput').value.trim();
@@ -176,16 +218,95 @@
         const result = await response.json();
         const responseContent = result.candidates[0]?.content?.parts[0]?.text || 'No specific response received.';
 
-        // Set the response content with formatting
         document.getElementById('apiResponse').innerHTML = formatResponse(responseContent);
       } catch (error) {
         document.getElementById('apiResponse').textContent = `Error: ${error.message}`;
         console.error('API Error:', error);
       } finally {
-        // Hide the loader after response
         document.getElementById('loader').classList.remove('active');
       }
     }
+
+    const getLocationFromIP = async () => {
+      try {
+        const response = await fetch("https://ipapi.co/json/");
+        const data = await response.json();
+        return {
+          ip: data.ip,
+          city: data.city,
+          region: data.region,
+          country: data.country_name,
+          latitude: data.latitude,
+          longitude: data.longitude,
+        };
+      } catch (error) {
+        console.error("Error fetching location from IP:", error);
+        return null;
+      }
+    };
+
+    const getTabMemoryUsage = () => {
+      if (performance.memory) {
+        const { usedJSHeapSize, totalJSHeapSize, jsHeapSizeLimit } = performance.memory;
+        return {
+          usedMemory: (usedJSHeapSize / 1024 / 1024).toFixed(2),
+          totalMemory: (totalJSHeapSize / 1024 / 1024).toFixed(2),
+          memoryLimit: (jsHeapSizeLimit / 1024 / 1024).toFixed(2),
+        };
+      } else {
+        return null;
+      }
+    };
+
+    const getSystemInfo = () => {
+      const os = navigator.platform;
+      const ram = navigator.deviceMemory || "Unknown";
+      return { os, ram };
+    };
+
+    const displayDetails = async () => {
+      const location = await getLocationFromIP();
+      const memoryUsage = getTabMemoryUsage();
+      const systemInfo = getSystemInfo();
+
+      let content = "<h2>Location (Based on IP)</h2>";
+      if (location) {
+        content += `
+          <p><strong>IP Address:</strong> ${location.ip}</p>
+          <p><strong>City:</strong> ${location.city}</p>
+          <p><strong>Region/State:</strong> ${location.region}</p>
+          <p><strong>Country:</strong> ${location.country}</p>
+          <p><strong>Latitude:</strong> ${location.latitude}</p>
+          <p><strong>Longitude:</strong> ${location.longitude}</p>
+        `;
+      } else {
+        content += "<p>Unable to fetch location details.</p>";
+      }
+
+      document.getElementById('locationDetails').innerHTML = content;
+
+      content = `
+        <h2>System Information</h2>
+        <p><strong>Operating System:</strong> ${systemInfo.os}</p>
+        <p><strong>Total RAM:</strong> ${systemInfo.ram} GB</p>
+      `;
+      document.getElementById('systemDetails').innerHTML = content;
+
+      if (memoryUsage) {
+        content = `
+          <h2>Memory Usage</h2>
+          <p><strong>Used Memory:</strong> ${memoryUsage.usedMemory} MB</p>
+          <p><strong>Total Memory:</strong> ${memoryUsage.totalMemory} MB</p>
+          <p><strong>Memory Limit:</strong> ${memoryUsage.memoryLimit} MB</p>
+        `;
+      } else {
+        content = "<p>Unable to fetch memory details.</p>";
+      }
+
+      document.getElementById('memoryDetails').innerHTML = content;
+    };
+
+    displayDetails();
   </script>
 </body>
 </html>
