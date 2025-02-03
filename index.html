@@ -3,147 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fitness Tracker</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-        .container {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 400px;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        .input-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            color: #555;
-        }
-        input[type="text"],
-        input[type="number"] {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            background: linear-gradient(145deg, #6dd5ed, #2193b0);
-            color: white;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            letter-spacing: 1px;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-        }
-        button:active {
-            transform: scale(0.98);
-        }
-        .log {
-            margin-top: 20px;
-            border-top: 1px solid #ddd;
-            padding-top: 15px;
-        }
-        .log-entry {
-            background-color: #f9f9f9;
-            padding: 10px;
-            border-radius: 4px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .log-entry:last-child {
-            margin-bottom: 0;
-        }
-        .delete-btn {
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .delete-btn:hover {
-            background-color: #c82333;
-        }
-    </style>
+    <title>SparkleWash - Online Laundry Service</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Fitness Tracker</h1>
-        <div class="input-group">
-            <label for="activity">Activity</label>
-            <input type="text" id="activity" placeholder="e.g., Running, Walking">
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-tshirt"></i>
+            <span>SparkleWash</span>
         </div>
-        <div class="input-group">
-            <label for="duration">Duration (minutes)</label>
-            <input type="number" id="duration" placeholder="e.g., 30">
+        <div class="nav-links">
+            <a href="#home" class="active">Home</a>
+            <a href="#services">Services</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#contact">Contact</a>
+            <button class="order-btn" onclick="openOrderForm()">Order Now</button>
         </div>
-        <button onclick="addActivity()">Log Activity</button>
-        <div class="log" id="log">
-            <h2>Activity Log</h2>
+        <div class="menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content" data-aos="fade-up">
+            <h1>Professional Laundry Service at Your Doorstep</h1>
+            <p>Experience the convenience of our premium laundry service with free pickup and delivery</p>
+            <button class="cta-btn" onclick="openOrderForm()">Schedule Pickup</button>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <h2 data-aos="fade-up">Our Services</h2>
+        <div class="service-grid">
+            <div class="service-card" data-aos="fade-up">
+                <i class="fas fa-tshirt"></i>
+                <h3>Wash & Fold</h3>
+                <p>Professional washing and folding of your everyday clothes</p>
+            </div>
+            <div class="service-card" data-aos="fade-up">
+                <i class="fas fa-drum"></i>
+                <h3>Dry Cleaning</h3>
+                <p>Expert dry cleaning for your delicate garments</p>
+            </div>
+            <div class="service-card" data-aos="fade-up">
+                <i class="fas fa-iron"></i>
+                <h3>Iron & Press</h3>
+                <p>Crisp and professional ironing service</p>
+            </div>
+            <div class="service-card" data-aos="fade-up">
+                <i class="fas fa-clock"></i>
+                <h3>Express Service</h3>
+                <p>Same-day service for urgent requirements</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="pricing">
+        <h2 data-aos="fade-up">Our Pricing</h2>
+        <div class="pricing-grid">
+            <div class="price-card" data-aos="fade-up">
+                <h3>Basic Wash</h3>
+                <div class="price">$2.99<span>/lb</span></div>
+                <ul>
+                    <li>Wash & Fold</li>
+                    <li>48-hour turnaround</li>
+                    <li>Free pickup & delivery</li>
+                </ul>
+                <button onclick="openOrderForm()">Order Now</button>
+            </div>
+            <div class="price-card featured" data-aos="fade-up">
+                <h3>Premium Service</h3>
+                <div class="price">$4.99<span>/lb</span></div>
+                <ul>
+                    <li>Wash & Fold</li>
+                    <li>24-hour turnaround</li>
+                    <li>Free pickup & delivery</li>
+                    <li>Stain treatment</li>
+                </ul>
+                <button onclick="openOrderForm()">Order Now</button>
+            </div>
+            <div class="price-card" data-aos="fade-up">
+                <h3>Dry Clean</h3>
+                <div class="price">$6.99<span>/item</span></div>
+                <ul>
+                    <li>Professional dry cleaning</li>
+                    <li>48-hour turnaround</li>
+                    <li>Free pickup & delivery</li>
+                    <li>Garment care</li>
+                </ul>
+                <button onclick="openOrderForm()">Order Now</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <h2 data-aos="fade-up">Contact Us</h2>
+        <div class="contact-container">
+            <div class="contact-info" data-aos="fade-right">
+                <h3>Get in Touch</h3>
+                <p><i class="fas fa-phone"></i> (555) 123-4567</p>
+                <p><i class="fas fa-envelope"></i> info@sparklewash.com</p>
+                <p><i class="fas fa-location-dot"></i> 123 Laundry Street, Clean City</p>
+            </div>
+            <form class="contact-form" data-aos="fade-left" onsubmit="submitContactForm(event)">
+                <input type="text" placeholder="Name" required>
+                <input type="email" placeholder="Email" required>
+                <textarea placeholder="Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeOrderForm()">&times;</span>
+            <h2>Schedule Pickup</h2>
+            <form id="orderForm" onsubmit="submitOrderForm(event)">
+                <input type="text" placeholder="Name" required>
+                <input type="email" placeholder="Email" required>
+                <input type="tel" placeholder="Phone" required>
+                <input type="text" placeholder="Address" required>
+                <select required>
+                    <option value="">Select Service</option>
+                    <option value="basic">Basic Wash</option>
+                    <option value="premium">Premium Service</option>
+                    <option value="dry-clean">Dry Clean</option>
+                </select>
+                <input type="datetime-local" required>
+                <textarea placeholder="Special Instructions"></textarea>
+                <button type="submit">Schedule Pickup</button>
+            </form>
         </div>
     </div>
 
-    <script>
-        function addActivity() {
-            const activityInput = document.getElementById('activity');
-            const durationInput = document.getElementById('duration');
-            const logContainer = document.getElementById('log');
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>SparkleWash</h3>
+                <p>Professional laundry service at your doorstep</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="#home">Home</a>
+                <a href="#services">Services</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 SparkleWash. All rights reserved.</p>
+        </div>
+    </footer>
 
-            const activity = activityInput.value.trim();
-            const duration = durationInput.value.trim();
-
-            if (activity === '' || duration === '') {
-                alert('Please fill in both fields.');
-                return;
-            }
-
-            const logEntry = document.createElement('div');
-            logEntry.className = 'log-entry';
-
-            const activityText = document.createElement('span');
-            activityText.textContent = `${activity} - ${duration} minutes`;
-
-            const deleteBtn = document.createElement('button');
-            deleteBtn.className = 'delete-btn';
-            deleteBtn.textContent = 'Delete';
-            deleteBtn.onclick = () => logContainer.removeChild(logEntry);
-
-            logEntry.appendChild(activityText);
-            logEntry.appendChild(deleteBtn);
-            logContainer.appendChild(logEntry);
-
-            activityInput.value = '';
-            durationInput.value = '';
-        }
-    </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
