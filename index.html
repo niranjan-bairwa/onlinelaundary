@@ -107,7 +107,7 @@
                 <p><i class="fas fa-envelope"></i> info@sparklewash.com</p>
                 <p><i class="fas fa-location-dot"></i> 123 Laundry Street, Clean City</p>
             </div>
-            <form class="contact-form" data-aos="fade-left" onsubmit="submitContactForm(event)">
+            <form class="contact-form" data-aos="fade-left" onsubmit="submitContactForm(event)" netlify>
                 <input type="text" placeholder="Name" required>
                 <input type="email" placeholder="Email" required>
                 <textarea placeholder="Message" required></textarea>
@@ -120,7 +120,7 @@
         <div class="modal-content">
             <span class="close" onclick="closeOrderForm()">&times;</span>
             <h2>Schedule Pickup</h2>
-            <form id="orderForm" onsubmit="submitOrderForm(event)">
+            <form id="orderForm" onsubmit="submitOrderForm(event)" netlify>
                 <input type="text" placeholder="Name" required>
                 <input type="email" placeholder="Email" required>
                 <input type="tel" placeholder="Phone" required>
