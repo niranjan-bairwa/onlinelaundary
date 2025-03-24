@@ -346,3 +346,109 @@ backToTop.addEventListener('click', () => {
         behavior: 'smooth'
     });
 });
+
+// Email handling functions
+function sendEmail(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(e.target);
+    const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        message: formData.get('message')
+    };
+
+    // Create email content
+    const emailContent = `
+        New Contact Form Submission:
+        
+        Name: ${data.name}
+        Email: ${data.email}
+        Phone: ${data.phone}
+        Message: ${data.message}
+    `;
+
+    // Send email using EmailJS
+    emailjs.send('service_iba4fu3', 'template_wedivf5', {
+        to_email: 'vnbairwa2002@gmail.com',
+        from_name: data.name,
+        from_email: data.email,
+        message: emailContent,
+    }).then(
+        function(response) {
+            showNotification('Message sent successfully!', 'success');
+            e.target.reset();
+        },
+        function(error) {
+            showNotification('Failed to send message. Please try again.', 'error');
+            console.error('Email error:', error);
+        }
+    );
+}
+
+function sendOrderEmail(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(e.target);
+    const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        address: formData.get('address'),
+        service: formData.get('service'),
+        pickupTime: formData.get('pickupTime'),
+        instructions: formData.get('instructions')
+    };
+
+    // Create email content
+    const emailContent = `
+        New Order Submission:
+        
+        Name: ${data.name}
+        Email: ${data.email}
+        Phone: ${data.phone}
+        Address: ${data.address}
+        Service: ${data.service}
+        Pickup Time: ${data.pickupTime}
+        Special Instructions: ${data.instructions}
+    `;
+
+    // Send email using EmailJS
+    emailjs.send('service_iba4fu3', 'template_wedivf5', {
+        to_email: 'vnbairwa2002@gmail.com',
+        from_name: data.name,
+        from_email: data.email,
+        message: emailContent,
+    }).then(
+        function(response) {
+            showNotification('Order placed successfully!', 'success');
+            closeOrderForm();
+            e.target.reset();
+        },
+        function(error) {
+            showNotification('Failed to place order. Please try again.', 'error');
+            console.error('Email error:', error);
+        }
+    );
+}
+
+// Notification function
+function showNotification(message, type) {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.classList.add('show');
+    }, 100);
+    
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+            notification.remove();
+        }, 300);
+    }, 3000);
+}
