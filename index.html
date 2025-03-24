@@ -3,141 +3,417 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SparkleWash - Online Laundry Service</title>
+    <meta name="description" content="Professional laundry service at your doorstep. We offer wash & fold, dry cleaning, and ironing services with free pickup and delivery.">
+    <meta name="keywords" content="laundry service, dry cleaning, wash and fold, ironing service, doorstep laundry">
+    <meta name="theme-color" content="#4a90e2">
+    <title>SparkleWash - Professional Laundry Service at Your Doorstep</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/logo.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Navbar -->
     <nav class="navbar">
         <div class="nav-brand">
-            <i class="fas fa-tshirt"></i>
-            <span>SparkleWash</span>
+            <a href="#home" class="brand-link">
+                <span class="brand-title">SparkleWash</span>
+                <span class="brand-dot">.</span>
+            </a>
         </div>
         <div class="nav-links">
             <a href="#home" class="active">Home</a>
             <a href="#services">Services</a>
             <a href="#pricing">Pricing</a>
             <a href="#contact">Contact</a>
-            <button class="order-btn" onclick="openOrderForm()">Order Now</button>
+            <button class="order-btn" onclick="openOrderForm()">
+                <i class="fas fa-calendar-check"></i>
+                Schedule Now
+            </button>
         </div>
-        <div class="menu-btn">
+        <button class="menu-btn" aria-label="Toggle Menu">
             <i class="fas fa-bars"></i>
-        </div>
+        </button>
     </nav>
 
+    <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="hero-content" data-aos="fade-up">
-            <h1>Professional Laundry Service at Your Doorstep</h1>
-            <p>Experience the convenience of our premium laundry service with free pickup and delivery</p>
-            <button class="cta-btn" onclick="openOrderForm()">Schedule Pickup</button>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Professional Laundry<br>At Your Doorstep</h1>
+            <p>Trust us with your finest garments.<br>Professional dry cleaning with guaranteed satisfaction.</p>
+            <div class="hero-buttons">
+                <button class="cta-btn" onclick="openOrderForm()">
+                    <i class="fas fa-tshirt"></i>
+                    Book Service
+                </button>
+                <button class="secondary-btn" onclick="window.location.href='#pricing'">
+                    <i class="fas fa-tags"></i>
+                    View Pricing
+                </button>
+                <button class="outline-btn" onclick="window.location.href='#contact'">
+                    <i class="fas fa-phone"></i>
+                    Get Quote
+                </button>
+            </div>
         </div>
     </section>
 
+    <!-- Services Section -->
     <section id="services" class="services">
-        <h2 data-aos="fade-up">Our Services</h2>
+        <h2 data-aos="fade-up">Our Offerings</h2>
+        <p class="section-subtitle" data-aos="fade-up">Professional laundry services at your doorstep</p>
         <div class="service-grid">
+            <!-- Service 1: Wash & Fold -->
             <div class="service-card" data-aos="fade-up">
-                <i class="fas fa-tshirt"></i>
+                <div class="service-icon">
+                    <i class="fas fa-tshirt"></i>
+                </div>
                 <h3>Wash & Fold</h3>
-                <p>Professional washing and folding of your everyday clothes</p>
+                <p>Professional washing and folding of your everyday clothes.</p>
+                <div class="service-price">
+                    <span>Starting from</span>
+                    <div class="price">₹60<span>/kg</span></div>
+                </div>
+                <ul class="service-features">
+                    <li><i class="fas fa-check"></i> Machine wash</li>
+                    <li><i class="fas fa-check"></i> Premium detergents</li>
+                    <li><i class="fas fa-check"></i> Fabric softener</li>
+                    <li><i class="fas fa-check"></i> Proper folding</li>
+                </ul>
+                <button onclick="openOrderForm()" class="service-btn">
+                    Book Now <i class="fas fa-arrow-right"></i>
+                </button>
             </div>
+
+            <!-- Service 2: Dry Cleaning -->
             <div class="service-card" data-aos="fade-up">
-                <i class="fas fa-drum"></i>
+                <div class="service-icon">
+                    <i class="fas fa-drum"></i>
+                </div>
                 <h3>Dry Cleaning</h3>
-                <p>Expert dry cleaning for your delicate garments</p>
+                <p>Expert dry cleaning for your premium garments.</p>
+                <div class="service-price">
+                    <span>Starting from</span>
+                    <div class="price">₹249<span>/piece</span></div>
+                </div>
+                <ul class="service-features">
+                    <li><i class="fas fa-check"></i> Suits & Sarees</li>
+                    <li><i class="fas fa-check"></i> Stain removal</li>
+                    <li><i class="fas fa-check"></i> Premium care</li>
+                    <li><i class="fas fa-check"></i> Fabric protection</li>
+                </ul>
+                <button onclick="openOrderForm()" class="service-btn">
+                    Book Now <i class="fas fa-arrow-right"></i>
+                </button>
             </div>
-            <div class="service-card" data-aos="fade-up">
-                <i class="fas fa-iron"></i>
+
+            <!-- Service 3: Iron & Press -->
+            <div class="service-card featured" data-aos="fade-up">
+                <div class="featured-label">Most Popular</div>
+                <div class="service-icon">
+                    <i class="fas fa-iron"></i>
+                </div>
                 <h3>Iron & Press</h3>
-                <p>Crisp and professional ironing service</p>
+                <p>Professional steam ironing for crisp, wrinkle-free clothes.</p>
+                <div class="service-price">
+                    <span>Starting from</span>
+                    <div class="price">₹15<span>/piece</span></div>
+                </div>
+                <ul class="service-features">
+                    <li><i class="fas fa-check"></i> Steam ironing</li>
+                    <li><i class="fas fa-check"></i> Starching available</li>
+                    <li><i class="fas fa-check"></i> Hanging ready</li>
+                    <li><i class="fas fa-check"></i> Same day service</li>
+                </ul>
+                <button onclick="openOrderForm()" class="service-btn featured-btn">
+                    Book Now <i class="fas fa-arrow-right"></i>
+                </button>
             </div>
+
+            <!-- Service 4: Express Service -->
             <div class="service-card" data-aos="fade-up">
-                <i class="fas fa-clock"></i>
+                <div class="service-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
                 <h3>Express Service</h3>
-                <p>Same-day service for urgent requirements</p>
+                <p>Quick turnaround for urgent requirements.</p>
+                <div class="service-price">
+                    <span>Starting from</span>
+                    <div class="price">₹99<span>/kg</span></div>
+                </div>
+                <ul class="service-features">
+                    <li><i class="fas fa-check"></i> 6-hour delivery</li>
+                    <li><i class="fas fa-check"></i> Priority handling</li>
+                    <li><i class="fas fa-check"></i> WhatsApp updates</li>
+                    <li><i class="fas fa-check"></i> Express delivery</li>
+                </ul>
+                <button onclick="openOrderForm()" class="service-btn">
+                    Book Now <i class="fas fa-arrow-right"></i>
+                </button>
             </div>
         </div>
     </section>
 
+    <!-- Pricing Section -->
     <section id="pricing" class="pricing">
         <h2 data-aos="fade-up">Our Pricing</h2>
+        <p class="section-subtitle" data-aos="fade-up">Choose the perfect plan for your laundry needs</p>
         <div class="pricing-grid">
             <div class="price-card" data-aos="fade-up">
-                <h3>Basic Wash</h3>
-                <div class="price">$2.99<span>/lb</span></div>
-                <ul>
-                    <li>Wash & Fold</li>
-                    <li>48-hour turnaround</li>
-                    <li>Free pickup & delivery</li>
-                </ul>
-                <button onclick="openOrderForm()">Order Now</button>
+                <div class="price-header">
+                    <div class="price-icon">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <h3>Basic Wash</h3>
+                    <div class="price">
+                        <span class="currency">₹</span>
+                        <span class="amount">199</span>
+                        <span class="unit">/kg</span>
+                    </div>
+                </div>
+                <div class="price-features">
+                    <ul>
+                        <li><i class="fas fa-check"></i> Wash & Fold</li>
+                        <li><i class="fas fa-check"></i> 48-hour turnaround</li>
+                        <li><i class="fas fa-check"></i> Free pickup & delivery</li>
+                    </ul>
+                </div>
+                <button onclick="openOrderForm()" class="price-btn">
+                    <span>Get Started</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
             </div>
+
             <div class="price-card featured" data-aos="fade-up">
-                <h3>Premium Service</h3>
-                <div class="price">$4.99<span>/lb</span></div>
-                <ul>
-                    <li>Wash & Fold</li>
-                    <li>24-hour turnaround</li>
-                    <li>Free pickup & delivery</li>
-                    <li>Stain treatment</li>
-                </ul>
-                <button onclick="openOrderForm()">Order Now</button>
+                <div class="featured-tag">Most Popular</div>
+                <div class="price-header">
+                    <div class="price-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>Premium Service</h3>
+                    <div class="price">
+                        <span class="currency">₹</span>
+                        <span class="amount">299</span>
+                        <span class="unit">/kg</span>
+                    </div>
+                </div>
+                <div class="price-features">
+                    <ul>
+                        <li><i class="fas fa-check"></i> Wash & Fold</li>
+                        <li><i class="fas fa-check"></i> 24-hour turnaround</li>
+                        <li><i class="fas fa-check"></i> Free pickup & delivery</li>
+                        <li><i class="fas fa-check"></i> Stain treatment</li>
+                        <li><i class="fas fa-check"></i> Premium detergents</li>
+                    </ul>
+                </div>
+                <button onclick="openOrderForm()" class="price-btn featured-btn">
+                    <span>Choose Plan</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
             </div>
+
             <div class="price-card" data-aos="fade-up">
-                <h3>Dry Clean</h3>
-                <div class="price">$6.99<span>/item</span></div>
-                <ul>
-                    <li>Professional dry cleaning</li>
-                    <li>48-hour turnaround</li>
-                    <li>Free pickup & delivery</li>
-                    <li>Garment care</li>
-                </ul>
-                <button onclick="openOrderForm()">Order Now</button>
+                <div class="price-header">
+                    <div class="price-icon">
+                        <i class="fas fa-drum"></i>
+                    </div>
+                    <h3>Dry Clean</h3>
+                    <div class="price">
+                        <span class="currency">₹</span>
+                        <span class="amount">399</span>
+                        <span class="unit">/piece</span>
+                    </div>
+                </div>
+                <div class="price-features">
+                    <ul>
+                        <li><i class="fas fa-check"></i> Professional dry cleaning</li>
+                        <li><i class="fas fa-check"></i> 48-hour turnaround</li>
+                        <li><i class="fas fa-check"></i> Free pickup & delivery</li>
+                        <li><i class="fas fa-check"></i> Garment care</li>
+                    </ul>
+                </div>
+                <button onclick="openOrderForm()" class="price-btn">
+                    <span>Get Started</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
             </div>
         </div>
     </section>
 
+    <!-- Contact Section -->
     <section id="contact" class="contact">
         <h2 data-aos="fade-up">Contact Us</h2>
+        <p class="section-subtitle" data-aos="fade-up">Get in touch with us for any queries or assistance</p>
+        
         <div class="contact-container">
             <div class="contact-info" data-aos="fade-right">
-                <h3>Get in Touch</h3>
-                <p><i class="fas fa-phone"></i> (555) 123-4567</p>
-                <p><i class="fas fa-envelope"></i> info@sparklewash.com</p>
-                <p><i class="fas fa-location-dot"></i> 123 Laundry Street, Clean City</p>
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div class="contact-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3>Get in Touch</h3>
+                        <p>We're here to help you 24/7</p>
+                    </div>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div class="item-content">
+                                <h4>Phone</h4>
+                                <p>(555) 123-4567</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div class="item-content">
+                                <h4>Email</h4>
+                                <p>info@sparklewash.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-location-dot"></i>
+                            <div class="item-content">
+                                <h4>Location</h4>
+                                <p>123 Laundry Street, Clean City</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="business-hours">
+                        <h4><i class="fas fa-clock"></i> Business Hours</h4>
+                        <div class="hours-grid">
+                            <div class="day-time">
+                                <span class="day">Monday - Friday</span>
+                                <span class="time">8:00 AM - 8:00 PM</span>
+                            </div>
+                            <div class="day-time">
+                                <span class="day">Saturday</span>
+                                <span class="time">9:00 AM - 6:00 PM</span>
+                            </div>
+                            <div class="day-time">
+                                <span class="day">Sunday</span>
+                                <span class="time">Closed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <form class="contact-form" data-aos="fade-left" onsubmit="submitContactForm(event)" netlify>
-                <input type="text" placeholder="Name" required>
-                <input type="email" placeholder="Email" required>
-                <textarea placeholder="Message" required></textarea>
-                <button type="submit">Send Message</button>
-            </form>
+
+            <div class="contact-form-container" data-aos="fade-left">
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div class="contact-icon">
+                            <i class="fas fa-paper-plane"></i>
+                        </div>
+                        <h3>Send Message</h3>
+                        <p>We'll get back to you within 24 hours</p>
+                    </div>
+
+                    <form class="contact-form" onsubmit="submitContactForm(event)" netlify>
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" placeholder="Enter your name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" placeholder="Enter your email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" placeholder="Enter your phone number" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" placeholder="How can we help you?" rows="4" required></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
     </section>
 
+    <!-- Order Modal -->
     <div id="orderModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeOrderForm()">&times;</span>
-            <h2>Schedule Pickup</h2>
+            <span class="close" onclick="closeOrderForm()">
+                <i class="fas fa-times"></i>
+            </span>
+            <div class="modal-header">
+                <h2>Schedule Pickup</h2>
+                <p>Let us take care of your laundry</p>
+            </div>
             <form id="orderForm" onsubmit="submitOrderForm(event)" netlify>
-                <input type="text" placeholder="Name" required>
-                <input type="email" placeholder="Email" required>
-                <input type="tel" placeholder="Phone" required>
-                <input type="text" placeholder="Address" required>
-                <select required>
-                    <option value="">Select Service</option>
-                    <option value="basic">Basic Wash</option>
-                    <option value="premium">Premium Service</option>
-                    <option value="dry-clean">Dry Clean</option>
-                </select>
-                <input type="datetime-local" required>
-                <textarea placeholder="Special Instructions"></textarea>
-                <button type="submit">Schedule Pickup</button>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" placeholder="Enter your phone number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Pickup Address</label>
+                        <input type="text" id="address" placeholder="Enter your address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="service">Select Service</label>
+                        <select id="service" required>
+                            <option value="">Choose a service</option>
+                            <option value="basic">Basic Wash - $2.99/lb</option>
+                            <option value="premium">Premium Service - $4.99/lb</option>
+                            <option value="dry-clean">Dry Clean - $6.99/item</option>
+                            <option value="iron">Iron & Press - $3.99/item</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="pickup-time">Pickup Date & Time</label>
+                        <input type="datetime-local" id="pickup-time" required>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label for="instructions">Special Instructions</label>
+                    <textarea id="instructions" placeholder="Any special requests or instructions?" rows="3"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-calendar-check"></i>
+                    Schedule Pickup
+                </button>
             </form>
         </div>
     </div>
 
+    <!-- Footer -->
     <footer>
         <div class="footer-content">
             <div class="footer-section">
@@ -154,17 +430,23 @@
             <div class="footer-section">
                 <h3>Follow Us</h3>
                 <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2023 SparkleWash. All rights reserved.</p>
+            <p>&copy; 2024 SparkleWash. All rights reserved.</p>
         </div>
     </footer>
 
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="script.js"></script>
 </body>
