@@ -768,7 +768,7 @@ body.menu-open {
     }
 
     .price-card.featured {
-        transform: translateY(0);
+        transform: none;
     }
 
     .price-card {
@@ -1056,10 +1056,13 @@ body.menu-open {
     z-index: 1000;
     opacity: 0;
     transition: opacity 0.3s ease;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .modal.show {
     opacity: 1;
+    display: block;
 }
 
 .modal-content {
@@ -1067,7 +1070,7 @@ body.menu-open {
     background: white;
     width: 90%;
     max-width: 600px;
-    margin: 2rem auto;
+    margin: 20px auto;
     padding: 2rem;
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -1082,25 +1085,26 @@ body.menu-open {
 .modal-header {
     text-align: center;
     margin-bottom: 2rem;
+    padding-right: 30px;
 }
 
 .modal-header h2 {
     color: var(--secondary-color);
-    font-size: 2rem;
+    font-size: 1.8rem;
     margin-bottom: 0.5rem;
 }
 
 .modal-header p {
     color: #666;
-    font-size: 1rem;
+    font-size: 0.95rem;
 }
 
 .close {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
-    width: 32px;
-    height: 32px;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     background: var(--light-gray);
     display: flex;
@@ -1112,7 +1116,7 @@ body.menu-open {
 
 .close i {
     color: #666;
-    font-size: 1rem;
+    font-size: 0.9rem;
     transition: var(--transition);
 }
 
@@ -1124,25 +1128,21 @@ body.menu-open {
     color: white;
 }
 
-/* Form Styles */
+/* Form Styles for Mobile */
 .form-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+    grid-template-columns: 1fr;
+    gap: 1rem;
     margin-bottom: 1.5rem;
 }
 
 .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.form-group.full-width {
-    grid-column: 1 / -1;
+    margin-bottom: 1rem;
 }
 
 .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
     font-size: 0.9rem;
     font-weight: 500;
     color: var(--secondary-color);
@@ -1151,63 +1151,143 @@ body.menu-open {
 .form-group input,
 .form-group select,
 .form-group textarea {
-    padding: 0.8rem 1rem;
+    width: 100%;
+    padding: 0.8rem;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
-    font-size: 1rem;
-    transition: var(--transition);
+    font-size: 16px;
     background: white;
+    -webkit-appearance: none;
+    appearance: none;
 }
 
+.form-group select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23666' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    padding-right: 32px;
+}
+
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Mobile Specific Modal Styles */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        margin: 10px auto;
+        padding: 1.5rem;
+        max-height: calc(100vh - 20px);
+    }
+
+    .modal {
+        align-items: flex-start;
+    }
+
+    .modal-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        font-size: 16px;
+        padding: 0.75rem;
+    }
+
+    .close {
+        top: 0.75rem;
+        right: 0.75rem;
+        width: 28px;
+        height: 28px;
+    }
+
+    .close i {
+        font-size: 0.9rem;
+    }
+
+    .submit-btn {
+        width: 100%;
+        padding: 0.875rem;
+        font-size: 1rem;
+        margin-top: 1rem;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .form-group.full-width {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Fix for iOS input zoom */
+@media screen and (max-width: 768px) {
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="time"],
+    select,
+    textarea {
+        font-size: 16px !important;
+    }
+}
+
+/* Loading State for Submit Button */
+.submit-btn.loading {
+    position: relative;
+    color: transparent;
+}
+
+.submit-btn.loading::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid white;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+}
+
+/* Improved Touch Targets */
+.form-group input,
+.form-group select,
+.form-group textarea,
+.submit-btn {
+    min-height: 44px;
+}
+
+/* Better Spacing for Mobile */
+.form-group:last-child {
+    margin-bottom: 0;
+}
+
+.modal-content {
+    margin-bottom: 20px;
+}
+
+/* Scroll Improvements */
+.modal {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.modal::-webkit-scrollbar {
+    display: none;
+}
+
+/* Focus States */
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
     border-color: var(--primary-color);
     box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.1);
     outline: none;
-}
-
-.form-group textarea {
-    resize: vertical;
-    min-height: 100px;
-}
-
-.submit-btn {
-    width: 100%;
-    padding: 1rem;
-    background: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.submit-btn i {
-    font-size: 1.1rem;
-}
-
-.submit-btn:hover {
-    background: var(--primary-color-dark);
-    transform: translateY(-2px);
-}
-
-@media (max-width: 768px) {
-    .form-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .modal-content {
-        padding: 1.5rem;
-        margin: 1rem;
-        width: auto;
-    }
 }
 
 /* Footer Styles */
@@ -1748,4 +1828,175 @@ footer {
 
 .notification.show {
     transform: translateX(0);
+}
+
+/* Mobile Optimizations */
+@media screen and (max-width: 768px) {
+    /* Hero Section Mobile */
+    .hero {
+        height: 70vh;
+        padding: 1rem;
+    }
+
+    .hero-content {
+        padding: 1rem;
+        text-align: center;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
+        line-height: 1.2;
+        margin-bottom: 1rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .hero-buttons button {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+    }
+
+    /* Services Section Mobile */
+    .services {
+        padding: 3rem 1rem;
+    }
+
+    .service-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0.5rem;
+    }
+
+    .service-card {
+        padding: 1.5rem;
+    }
+
+    /* Pricing Section Mobile */
+    .pricing {
+        padding: 3rem 1rem;
+    }
+
+    .pricing-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0.5rem;
+    }
+
+    .price-card {
+        padding: 1.5rem;
+    }
+
+    /* Contact Section Mobile */
+    .contact {
+        padding: 3rem 1rem;
+    }
+
+    .contact-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .contact-card {
+        padding: 1.5rem;
+    }
+
+    /* Modal Mobile */
+    .modal-content {
+        width: 95%;
+        margin: 1rem auto;
+        padding: 1.5rem;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Footer Mobile */
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+        padding: 2rem 1rem;
+    }
+
+    .social-links {
+        justify-content: center;
+    }
+
+    /* Navigation Mobile */
+    .nav-links {
+        padding: 1rem;
+    }
+
+    .nav-links a {
+        font-size: 1.1rem;
+        padding: 0.75rem 1rem;
+    }
+
+    .order-btn {
+        width: 100%;
+        margin-top: 0.5rem;
+    }
+
+    /* Form Elements Mobile */
+    input, select, textarea {
+        font-size: 16px; /* Prevents zoom on iOS */
+        padding: 0.75rem;
+    }
+
+    .submit-btn {
+        width: 100%;
+        padding: 0.75rem;
+        font-size: 1rem;
+    }
+
+    /* Section Headers Mobile */
+    section h2 {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .section-subtitle {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+}
+
+/* Small Mobile Devices */
+@media screen and (max-width: 375px) {
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .hero-content p {
+        font-size: 0.9rem;
+    }
+
+    section h2 {
+        font-size: 1.75rem;
+    }
+
+    .service-card h3,
+    .price-card h3 {
+        font-size: 1.25rem;
+    }
+}
+
+/* Notification Mobile */
+@media screen and (max-width: 768px) {
+    .notification {
+        width: 90%;
+        left: 5%;
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+    }
 }
